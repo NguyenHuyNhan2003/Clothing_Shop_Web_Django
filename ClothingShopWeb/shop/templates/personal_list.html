@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History list</title>
+    <title>Personal list</title>
     <style>
         .navbar input::placeholder {
             color: #fff;
@@ -159,26 +159,33 @@
         </form>
     </div>
     
-
     <table>
         <tr>
-            <th>Mã hóa đơn</th>
-            <th>Ngày thanh toán</th>
+            <th>UserName</th>
+            <th>Name</th>
+            <th>Phone number</th>
+            <th>Role</th>
+            <th></th>
             {% if user.role == 1 %}
-                <th>Người thanh toán</th>
+                <th></th>
             {% endif %}
-            <th>Số tiền thanh toán</th>
-            
-            
         </tr>
-        {% for history in histories %}
+        {% for user in users %}
         <tr>
-            <td>{{ history.id }}</td>
-            <td>{{ history.date }}</td>
-            {% if user.role == 1 %}
-                <th>{{ history.user.username }}</th>
-            {% endif %}
-            <td>{{ history.total_amount }}</td>
+            <td>{{ user.user.username }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.phone_number }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+                <a href="{% url 'personal_list_update_view' user.user.username %}">
+                    <button style="background-color: #eeff00;">Update User</button>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'personal_delete' user.user.username %}">
+                    <button style="background-color: #ff0000;color:#f2f2f2;">Delete User</button>
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </table>
